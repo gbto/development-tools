@@ -1,7 +1,16 @@
-
-FROM debian:stretch-slim
-
+FROM debian:stretch-20220125-slim
 LABEL maintainer="gibboneto@gmail.com"
+
+ARG USER_NAME="debian"
+ARG USER_PASSWORD="password"
+
+ENV USER_NAME $USER_NAME
+ENV USER_PASSWORD $USER_PASSWORD
+ENV CONTAINER_IMAGE_VER=v1.0.0
+
+RUN echo $USER_NAME
+RUN echo $USER_PASSWORD
+RUN echo $CONTAINER_IMAGE_VER
 
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive
@@ -10,29 +19,27 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y sudo \
     build-essential \
-    wget \
     curl \
-    zsh \
-    git \
+    git-core \
     gnupg \
-    nodejs \
-    libbz2-dev \
-    libncurses5-dev \
-    libncursesw5-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    libssl-dev \
-    llvm \
     make \
-    tk-dev \
-    xz-utils \
-    zlib1g-dev
+    nodejs \
+    wget \
+    zsh
+
+# Add user to run the
+RUN useradd -ms /bin/zsh $USER_NAME
+USER $USER_NAME
+WORKDIR /home/$USER_NAME
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
 ENV SHELL /bin/zsh
-ENV HOME /home
+ENV HOME /home/$USER_NAME
 WORKDIR $HOME
+
+# The user we're applying this to
+USER $USER_NAME
 
 # Install custom terminal
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
