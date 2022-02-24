@@ -4,7 +4,6 @@ LABEL org.opencontainers.image.source https://github.com/gbto/tools
 
 ARG USER_NAME="debian"
 ARG USER_PASSWORD="password"
-ARG PYTHON_VERSION=3.8.6
 
 ENV USER_NAME $USER_NAME
 ENV USER_PASSWORD $USER_PASSWORD

@@ -4,7 +4,6 @@ LABEL org.opencontainers.image.source https://github.com/gbto/tools
 
 ARG USER_NAME="ubuntu"
 ARG USER_PASSWORD="password"
-ARG PYTHON_VERSION=3.8.6
 
 ENV USER_NAME $USER_NAME
 ENV USER_PASSWORD $USER_PASSWORD
@@ -26,7 +25,6 @@ RUN apt-get update && \
     git-core \
     gnupg \
     make \
-    nodejs \
     wget \
     zsh
 
@@ -41,6 +39,7 @@ RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -
 RUN git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 RUN curl -o .zshrc -LJO https://raw.githubusercontent.com/gbto/tools/main/configs/terminal/.zshrc
 RUN curl -o .p10k.zsh -LJO https://raw.githubusercontent.com/gbto/tools/main/configs/power10k/linux.p10k.zsh
+
 # Install relevant plugings
 RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
