@@ -115,10 +115,6 @@ source $ZSH/oh-my-zsh.sh
 #   2. MAKE TERMINAL BETTER
 #   --------------------------------------------------------------------------------------------------------------------
 
-# Definition of aliases for the most useful commands
-alias gibboneto_ssh='ssh-add -K ~/.ssh/gibboneto_rsa'   # Activate SSH for personal GitHub
-alias ledger_ssh='ssh-add -K ~/.ssh/id_rsa; git config user.name Quentin Gaborit; git config user.email quentin.gaborit@ledger.fr'
-
 alias cp='cp -iv'                                       # Preferred 'cp' implementation
 alias mv='mv -iv'                                       # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                                 # Preferred 'mkdir' implementation
