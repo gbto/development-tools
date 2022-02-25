@@ -1,10 +1,10 @@
 FROM debian:stretch-20220125-slim
-LABEL maintainer="gibboneto@gmail.com"
+LABEL maintainer="Gbto, <gibboneto@gmail.com>"
 LABEL org.opencontainers.image.source="https://github.com/gbto/tools"
 LABEL version="1.0.0"
+
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive
-
 USER root
 
 # Install webserver content retrievers
@@ -34,9 +34,9 @@ RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.
 ENV USER_NAME="gibboneto"
 RUN adduser --disabled-password --gecos '' ${USER_NAME}
 RUN adduser ${USER_NAME} sudo
-
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >>  /etc/sudoers
 
+# Change user
 USER ${USER_NAME}
 WORKDIR /home/$USER_NAME
 
