@@ -13,6 +13,8 @@ RUN curl -OL https://golang.org/dl/go${GO_VERSION}.linux-arm64.tar.gz \
     && ln -s /etc/golang/go/bin/go /usr/bin/go \
     && rm -f go${GO_VERSION}.linux-arm64.tar.gz
 
+RUN go install -v golang.org/x/tools/gopls@latest
+
 USER gibboneto
 
 CMD ["zsh"]
