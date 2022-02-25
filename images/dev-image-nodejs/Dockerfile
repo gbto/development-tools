@@ -1,12 +1,12 @@
 FROM ghcr.io/gbto/base-image-debian:1.0.0
-LABEL maintainer="gibboneto@gmail.com"
-LABEL org.opencontainers.image.source https://github.com/gbto/tools
-ENV CONTAINER_IMAGE_VER=v1.0.0
+LABEL maintainer="Gbto, <gibboneto@gmail.com>"
+LABEL org.opencontainers.image.source="https://github.com/gbto/tools"
+LABEL version="1.0.0"
 
 # Re-use user created in parent image
-ARG USER_NAME="gibboneto"
-USER $USER_NAME
+ENV USER_NAME="gibboneto"
 ENV HOME=/home/$USER_NAME
+USER $USER_NAME
 WORKDIR $HOME
 
 # Install NVM
