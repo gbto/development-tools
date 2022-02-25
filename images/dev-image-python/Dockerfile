@@ -1,10 +1,11 @@
 FROM ghcr.io/gbto/base-image-debian:1.0.0
 LABEL maintainer="gibboneto@gmail.com"
-LABEL org.opencontainers.image.source https://github.com/gbto/tools
-ENV CONTAINER_IMAGE_VER=v1.0.0
+LABEL org.opencontainers.image.source="https://github.com/gbto/tools"
+LABEL version="1.0.0"
+
+USER root
 
 # Install required utils
-USER root
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
@@ -22,10 +23,9 @@ RUN apt-get update && \
     liblzma-dev
 
 # Re-use user created in parent image
-ARG USER_NAME="gibboneto"
-USER $USER_NAME
-
+ENV USER_NAME="gibboneto"
 ENV HOME=/home/$USER_NAME
+USER $USER_NAME
 WORKDIR $HOME
 
 # Install python and pyenv
