@@ -132,5 +132,12 @@ alias f='open -a Finder ./'                             # f:            Opens cu
 alias finderShowHidden='defaults write com.apple.finder ShowAllFiles TRUE; killAll Finder'        # Show hidden files in Finder
 alias finderHideHidden='defaults write com.apple.finder ShowAllFiles FALSE; killAll Finder'       # Hide hidden files in Finder
 
+# Configure Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+ eval "$(pyenv init -)"
+fi
+
 # Source POETRY
 source $HOME/.poetry/env

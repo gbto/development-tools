@@ -48,8 +48,11 @@ RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
     unzip terraform_1.1.9_linux_arm64.zip && \
     mv terraform /usr/local/bin/
 
-# Install poetry for python environments
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+# Install pyenv for python version
+RUN git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+
+# # Install poetry for python environments
+# RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
 # Configure oh-my-zsh
 COPY configs/.zshrc /root/.zshrc
@@ -62,6 +65,7 @@ ENV TERM xterm
 RUN apt-get autoremove -y && apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 ENV DEBIAN_FRONTEND=dialog
+
 
 # Create working directory
 RUN mkdir /root/Programming

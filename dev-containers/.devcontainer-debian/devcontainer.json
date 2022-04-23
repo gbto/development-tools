@@ -3,7 +3,7 @@
     "dockerFile": "Dockerfile",
     "mounts": [
         "source=${env:HOME}${env:USERPROFILE}/.aws,target=/root/.aws,type=bind",
-        "source=${env:HOME}${env:USERPROFILE}/.pyenv,target=/root/.pyenv,type=bind",
+        "source=${env:HOME}${env:USERPROFILE}/.pyenv/versions,target=/root/.pyenv/versions,type=bind",
         "source=${env:HOME}${env:USERPROFILE}/.ssh,target=/root/.ssh,type=bind",
         "source=${env:HOME}${env:USERPROFILE}/.gitconfig-gbto,target=/root/.gitconfig-gbto,type=bind",
         "source=${env:HOME}${env:USERPROFILE}/.gitconfig-ledger,target=/root/.gitconfig-ledger,type=bind"
@@ -31,7 +31,7 @@
     "workspaceMount": "source=${env:HOME}${env:USERPROFILE}/Programming/gbto,target=/root/Programming/gbto,type=bind",
     "workspaceFolder": "/root/Programming/gbto",
     "postStartCommand": [
-        "git config --global gpg.program /usr/bin/gpg && git config --global core.editor /vscode/vscode-server/bin/linux-arm64/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli/code",
+        "/bin/zsh  git config --global gpg.program /usr/bin/gpg && git config --global core.editor vi"
     ],
     "settings": {
         "terminal.integrated.profiles.linux": {
