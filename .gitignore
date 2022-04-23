@@ -1,8 +1,9 @@
 # OSX hidden files
-.DS_Store
+**/.DS_Store
 
 # dotenv
-.env
+**devcontainer.env
+**.env
 
 # virtualenv
 venv/
