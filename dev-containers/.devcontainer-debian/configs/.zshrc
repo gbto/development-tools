@@ -139,5 +139,9 @@ if command -v pyenv 1>/dev/null 2>&1; then
  eval "$(pyenv init -)"
 fi
 
-# Source POETRY
-source $HOME/.poetry/env
+# Add Rust to the path
+export PATH="/root/.cargo/bin:${PATH}"
+
+# Add poetry to the path
+export PATH="~/.poetry/bin:$PATH"
+

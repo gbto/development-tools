@@ -5,11 +5,20 @@ FROM arm64v8/debian
 COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 
 # Configure apt
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    POETRY_VERSION=1.1.13
+
+# Install utils for Linux packages installation
 RUN apt-get update && \
     apt-get -y install --no-install-recommends apt-utils 2>&1
 
-# Install Update Apt and install apps
+# Install Linux packages
 RUN  apt-get update && \
     apt-get install -y zsh \
     apt-transport-https \
@@ -30,6 +39,10 @@ RUN  apt-get update && \
     vim \
     sudo
 
+# Use Python 3 for `python`, `pip`
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 \
+    && update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+
 # Install and set-up oh-my-zsh
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true && \
     git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
@@ -38,21 +51,24 @@ RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen
 
-# Install docker
+# Install Docker
 RUN curl -fsSL https://get.docker.com | sh
 
-# # Set-up and install terraform
+# Install and set-up Terraform
 RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
     sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
     wget https://releases.hashicorp.com/terraform/1.1.9/terraform_1.1.9_linux_arm64.zip && \
     unzip terraform_1.1.9_linux_arm64.zip && \
     mv terraform /usr/local/bin/
 
-# Install pyenv for python version
+# Install Rust
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+
+# Install pyenv
 RUN git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 
-# # Install poetry for python environments
-# RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+# Install pants
+RUN curl -L -O https://static.pantsbuild.org/setup/pants && chmod +x ./pants
 
 # Configure oh-my-zsh
 COPY configs/.zshrc /root/.zshrc
@@ -62,14 +78,16 @@ COPY configs/.p10k.zsh /root/.p10k.zsh
 ENV TERM xterm
 
 # Clean up
-RUN apt-get autoremove -y && apt-get clean -y && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 ENV DEBIAN_FRONTEND=dialog
-
 
 # Create working directory
 RUN mkdir /root/Programming
 WORKDIR /root/Programming
+
+# Project initialization
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
+# && poetry install $(test "$YOUR_ENV" == production && echo "--no-dev") --no-interaction --no-ansi
 
 # Run zsh
 CMD ["zsh"]
