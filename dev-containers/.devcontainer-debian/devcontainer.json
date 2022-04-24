@@ -6,7 +6,9 @@
         "source=${env:HOME}${env:USERPROFILE}/.pyenv/versions,target=/root/.pyenv/versions,type=bind",
         "source=${env:HOME}${env:USERPROFILE}/.ssh,target=/root/.ssh,type=bind",
         "source=${env:HOME}${env:USERPROFILE}/.gitconfig-gbto,target=/root/.gitconfig-gbto,type=bind",
-        "source=${env:HOME}${env:USERPROFILE}/.gitconfig-ledger,target=/root/.gitconfig-ledger,type=bind"
+        "source=${env:HOME}${env:USERPROFILE}/.gitconfig-ledger,target=/root/.gitconfig-ledger,type=bind",
+        "source=devcontainer-extensions,target=/root/.vscode-server/extensions,type=volume",
+        "source=devcontainer-extensions-insiders,target=/root/.vscode-server-insiders/extensions,type=volume"
     ],
     "runArgs": [
         "--volume",
@@ -30,9 +32,7 @@
     ],
     "workspaceMount": "source=${env:HOME}${env:USERPROFILE}/Programming/gbto,target=/root/Programming/gbto,type=bind",
     "workspaceFolder": "/root/Programming/gbto",
-    "postStartCommand": [
-        "/bin/zsh  git config --global gpg.program /usr/bin/gpg && git config --global core.editor vi"
-    ],
+    "postStartCommand": "git config --global gpg.program /usr/bin/gpg && git config --global core.editor vi",
     "settings": {
         "terminal.integrated.profiles.linux": {
             "zsh": {
