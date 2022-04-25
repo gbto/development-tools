@@ -1,0 +1,68 @@
+{
+    "name": "GBTO",
+    "dockerFile": "Dockerfile",
+    "mounts": [
+        "source=${env:HOME}${env:USERPROFILE}/.aws,target=/root/.aws,type=bind",
+        "source=${env:HOME}${env:USERPROFILE}/.pyenv/versions,target=/root/.pyenv/versions,type=bind",
+        "source=${env:HOME}${env:USERPROFILE}/.ssh,target=/root/.ssh,type=bind",
+        "source=${env:HOME}${env:USERPROFILE}/.gitconfig-gbto,target=/root/.gitconfig-gbto,type=bind",
+        "source=${env:HOME}${env:USERPROFILE}/.gitconfig-ledger,target=/root/.gitconfig-ledger,type=bind",
+        "source=devcontainer-extensions,target=/root/.vscode-server/extensions,type=volume",
+        "source=devcontainer-extensions-insiders,target=/root/.vscode-server-insiders/extensions,type=volume"
+    ],
+    "runArgs": [
+        "--volume",
+        "/var/run/docker.sock:/var/run/docker.sock",
+        "--env-file",
+        ".devcontainer/devcontainer.env"
+    ],
+    "extensions": [
+        "VisualStudioExptTeam.vscodeintellicode",
+        "peterjausovec.vscode-docker",
+        "ms-python.python",
+        "redhat.vscode-yaml",
+        "ms-vsliveshare.vsliveshare",
+        "amazonwebservices.aws-toolkit-vscode",
+        "ms-azuretools.vscode-docker",
+        "donjayamanne.githistory",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "njpwerner.autodocstring",
+        "JHeilingbrunner.vscode-gnupg-tool"
+    ],
+    "workspaceMount": "source=${env:HOME}${env:USERPROFILE}/Programming/gbto,target=/root/Programming/gbto,type=bind",
+    "workspaceFolder": "/root/Programming/gbto",
+    "postStartCommand": "git config --global gpg.program /usr/bin/gpg && git config --global core.editor vi",
+    "settings": {
+        "terminal.integrated.profiles.linux": {
+            "zsh": {
+                "path": "/bin/zsh"
+            },
+        },
+        // FILES FORMATTING
+        "files.maxMemoryForLargeFilesMB": 6144,
+        "files.insertFinalNewline": true,
+        "files.trimTrailingWhitespace": true,
+        "files.exclude": {
+            "**/.classpath": true,
+            "**/.project": true,
+            "**/.settings": true,
+            "**/.factorypath": true,
+            "**/__pycache__": true,
+            "**/.ipynb_checkpoints/": true
+        },
+        // JUPYTER SETTINGS
+        "jupyter.sendSelectionToInteractiveWindow": true,
+        "jupyter.interactiveWindowMode": "perFile",
+        "jupyter.notebookFileRoot": "${workspaceFolder}",
+        // PYTHON
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.autoComplete.extraPaths": [],
+        "python.analysis.extraPaths": [],
+        "python.analysis.completeFunctionParens": true,
+        "python.analysis.autoImportCompletions": true,
+        // GIT EXTENSIONS
+        "git.autofetch": "all",
+        "diffEditor.ignoreTrimWhitespace": false,
+    }
+}
