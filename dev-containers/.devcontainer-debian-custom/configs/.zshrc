@@ -129,8 +129,10 @@ alias f='open -a Finder ./'                             # f:            Opens cu
 #   ----------------------------------------------------------
 #   Show and hide files in finder
 #   ----------------------------------------------------------
-alias finderShowHidden='defaults write com.apple.finder ShowAllFiles TRUE; killAll Finder'        # Show hidden files in Finder
-alias finderHideHidden='defaults write com.apple.finder ShowAllFiles FALSE; killAll Finder'       # Hide hidden files in Finder
+alias docker-clean='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'           # Removes dangling docker images
+alias ghcr_ledger='echo $GITHUB_PAT_LEDGER | docker login ghcr.io -u gbto --password-stdin'       # Connects to personal GitHub container registry
+alias ghcr_perso='echo $GITHUB_PAT_PERSO | docker login ghcr.io -u gbto --password-stdin'         # Connects to Ledger GitHub container registry
+alias aws='docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli'                # Alias to run AWS cli in Docker
 
 # Configure Pyenv
 export PYENV_ROOT="$HOME/.pyenv"

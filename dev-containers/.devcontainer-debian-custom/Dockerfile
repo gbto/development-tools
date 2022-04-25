@@ -51,7 +51,11 @@ RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen
 
-# Install Docker
+# Configure oh-my-zsh
+COPY configs/.zshrc /root/.zshrc
+COPY configs/.p10k.zsh /root/.p10k.zsh
+
+# Install docker in docker
 RUN curl -fsSL https://get.docker.com | sh
 
 # Install and set-up Terraform
@@ -67,12 +71,15 @@ RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 # Install pyenv
 RUN git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 
+# Project initialization
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
+
 # Install pants
 RUN curl -L -O https://static.pantsbuild.org/setup/pants && chmod +x ./pants
 
-# Configure oh-my-zsh
-COPY configs/.zshrc /root/.zshrc
-COPY configs/.p10k.zsh /root/.p10k.zsh
+# Install python formatters
+RUN pip3 install flake8 black
+
 
 # terminal colors with xterm
 ENV TERM xterm
@@ -84,10 +91,6 @@ ENV DEBIAN_FRONTEND=dialog
 # Create working directory
 RUN mkdir /root/Programming
 WORKDIR /root/Programming
-
-# Project initialization
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
-# && poetry install $(test "$YOUR_ENV" == production && echo "--no-dev") --no-interaction --no-ansi
 
 # Run zsh
 CMD ["zsh"]

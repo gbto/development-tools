@@ -27,6 +27,7 @@
         "donjayamanne.githistory",
         "eamodio.gitlens",
         "mhutchie.git-graph",
+        "GitHub.vscode-pull-request-github",
         "njpwerner.autodocstring",
         "JHeilingbrunner.vscode-gnupg-tool"
     ],
