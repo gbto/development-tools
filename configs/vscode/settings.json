@@ -1,0 +1,134 @@
+{
+    // WORKBENCH
+    "workbench.settings.editor": "json",
+    "workbench.settings.useSplitJSON": true,
+    "workbench.settings.openDefaultSettings": true,
+    "workbench.colorTheme": "Default Light+",
+    "workbench.iconTheme": "seti",
+    "workbench.colorCustomizations": {
+        "terminal.foreground": "#f5fff9",
+        "terminal.background": "#383737"
+    },
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    // DEBUGGING
+    "debug.allowBreakpointsEverywhere": true,
+    // EDITOR SETTINGS
+    "editor.detectIndentation": true,
+    "editor.foldingMaximumRegions": 500,
+    "editor.formatOnSave": true,
+    "editor.suggestSelection": "first",
+    "editor.quickSuggestionsDelay": 3,
+    "editor.tabCompletion": "on",
+    "editor.parameterHints.enabled": true,
+    "editor.suggest.localityBonus": true,
+    "editor.suggest.showStatusBar": true,
+    "editor.wordWrap": "off",
+    "editor.minimap.side": "left",
+    "editor.autoIndent": "advanced",
+    "editor.rulers": [
+        120
+    ],
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "variable.parameter.function",
+                "settings": {
+                    "foreground": "#6094d4"
+                }
+            },
+            {
+                "scope": "meta.function",
+                "settings": {
+                    "fontStyle": "",
+                    "foreground": "#29847f"
+                }
+            }
+        ]
+    },
+    // DOCSTRINGS
+    "autoDocstring.docstringFormat": "google",
+    // FILES FORMATTING
+    "files.maxMemoryForLargeFilesMB": 6144,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        "**/__pycache__": true,
+        "**/.ipynb_checkpoints/": true
+    },
+    // INTEGRATED TERMINAL
+    "terminal.integrated.inheritEnv": true,
+    "terminal.integrated.profiles.linux": {
+        "zsh": {
+            "path": "/bin/zsh"
+        }
+    },
+    // PYTHON
+    "python.autoComplete.extraPaths": [],
+    "python.analysis.extraPaths": [],
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.defaultInterpreterPath": "${env:HOME}/.virtualenvs/ledger-3.10/bin/python",
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "120"
+    ],
+    "python.languageServer": "Pylance",
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--ignore=ANN101,DAR103,D100,D107,D202,E211,E266,E402,E712,E999,F401,F501,F821,W503"
+    ],
+    "python.terminal.activateEnvironment": true,
+    // JUPYTER SETTINGS
+    "jupyter.sendSelectionToInteractiveWindow": true,
+    "jupyter.askForKernelRestart": false,
+    "jupyter.interactiveWindowMode": "perFile",
+    "jupyter.notebookFileRoot": "${workspaceFolder}",
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "jupyter.runStartupCommands": [
+        "%load_ext dotenv",
+        "%dotenv ${workspaceFolder}/.env"
+    ],
+    // KUBERNETES
+    "vs-kubernetes": {
+        "vscode-kubernetes.helm-path.mac": "${env:HOME}/.vs-kubernetes/tools/helm/darwin-amd64/helm",
+        "vscode-kubernetes.minikube-path.mac": "${env:HOME}/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
+    },
+    // GIT EXTENSIONS
+    "git.autofetch": "all",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "gitlens.gitCommands.skipConfirmations": [
+        "fetch:command",
+        "switch:command",
+        "stash-push:command"
+    ],
+    // SQL EXPLORER AND EXTENSION
+    "sql.linter.executablePath": "${env:HOME}/.virtualenvs/ledger-3.10/bin/sqlfluff",
+    "sql.linter.ignoreParsing": false,
+    "sql.linter.run": "onType",
+    "sqltools.showStatusbar": true,
+    "sqltools.results": {
+        "limit": 50
+    },
+    "sqltools.completionLanguages": [
+        "sql"
+    ],
+    "security.workspace.trust.untrustedFiles": "newWindow",
+    "aws.profile": "profile:sbx-mfa",
+    "window.zoomLevel": -1,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
+}
