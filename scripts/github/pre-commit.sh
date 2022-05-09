@@ -8,19 +8,16 @@ signingKey=$(git config --get user.signingkey)
 workEmail="quentin.gaborit@ledger.fr"
 
 ######### COMMIT EMAIL VERIFICATION
-if [[ -z $currentEmail ]];
-then
+if [[ -z $currentEmail ]]; then
         echo "A git configuration is required to push commits to this repository."
         echo "Set it with git config user.email <user@email.com>"
         exit 1
-elif [[ $currentEmail != $workEmail ]];
-then
+elif [[ $currentEmail != $workEmail ]]; then
         echo "Expected and current user email differ"
         echo "Current commit email $currentEmail"
         echo "Work commit email: $workEmail"
         exit 1
-elif [[ -z $signingKey ]];
-then
+elif [[ -z $signingKey ]]; then
         echo "No signing key found. Check global gitconfig"
         exit 1
 else
@@ -30,4 +27,3 @@ fi
 ######### SQL FLUFF
 
 ######### PYTHON BLACK
-

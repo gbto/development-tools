@@ -57,8 +57,7 @@ else
 
     # apply formatting to each of the changed sql script
     echo ">> The modified .sql scripts will be formatted with sqlfluff:"
-    for changedSQLFile in "${sqlScripts[@]}"
-    do
+    for changedSQLFile in "${sqlScripts[@]}"; do
         echo $changedSQLFile
         sqlfluff fix -f -vv $changedSQLFile
     done
