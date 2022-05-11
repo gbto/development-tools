@@ -6,7 +6,8 @@
 **.env
 
 # virtualenv
-venv/
+**/venv/
+**/.venv/
 ENV/
 
 # Created by .ignore support plugin (hsz.mobi)
@@ -75,7 +76,6 @@ coverage.xml
 .idea_modules/
 /out/
 
-
 # Local .terraform directories
 **/.terraform/
 
@@ -110,9 +110,15 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
-
 .terraform.lock.hcl
 
 # Workflow specific folders
 **/drafts/
 **/lambda-sandbox/
+
+# Pants workspace files
+/.pants.d/
+/dist/
+/.pids
+/.pants.workdir.file_lock*
+/.pants.rc
