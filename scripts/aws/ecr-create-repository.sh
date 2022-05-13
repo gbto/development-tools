@@ -1,8 +1,7 @@
 #!/bin/bash
+# Authenticates to an AWS ECR container registry and create a repository
 # Maintainer: Quentin Gaborit, <gibboneto@gmail.com>
-# Authenticates to an AWS ECR container registry and create a repository (to get the account id,
-# you can run the command 'aws sts get-caller-identity --profile $PROFILE').
-# Syntax: ecr-create-repository.sh [aws region] [aws account id] [repository name] [profile]
+# Syntax: ecr-create-repository.sh [aws region] [aws account id] [repository name]
 # Example: /bin/bash ecr-create-repository.sh $REGION $AWS_ACCOUNT_ID $REPOSITORY_NAME $PROFILE
 
 # Verify the JQ utils that renders JSON cli output is installed
@@ -58,7 +57,7 @@ EOF
 aws ecr get-login-password --region $1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com
 
 # Create the ECR repository if it doesn't exist
-output=$(aws ecr describe-repositories --registry-id $AWS_ACCOUNT_ID --repository-name $REPOSITORY_NAME --region $REGION --profile $PROFILE --no-cli-pager --no-cli-pager 2>&1)
+output=$(aws ecr describe-repositories --registry-id $AWS_ACCOUNT_ID --repository-name $REPOSITORY_NAME --region $REGION --profile $PROFILE --no-cli-pager 2>&1)
 
 if echo ${output} | grep -q 'RepositoryNotFoundException'; then
     # Create the ECR repository
@@ -84,6 +83,8 @@ if echo ${output} | grep -q 'RepositoryNotFoundException'; then
         --no-cli-pager)
     echo ">> Attached the following policy:"
     echo $policy | jq
+elif echo ${output} | grep -q 'AccessDeniedException'; then
+    echo "Access to the account had beend denied, the passed parameters might be incorrect."
 else
     echo "The repository $REPOSITORY_NAME already exists in account $AWS_ACCOUNT_ID region $REGION with the following configuration:"
     echo $output | jq
