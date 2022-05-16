@@ -6,6 +6,12 @@
 VPC_ID=$1
 REGION=$2
 
+if [[ -z $VPC_ID ]] || [[ -z $REGION ]]; then
+    echo "The VPC_ID and REGION environment variables "
+    echo "should be set in order to run this script. Set these and try again."
+    exit 1
+fi
+
 aws ec2 describe-vpc-peering-connections --region $REGION --filters 'Name=requester-vpc-info.vpc-id,Values='$VPC_ID | grep VpcPeeringConnectionId
 aws ec2 describe-nat-gateways --region $REGION --filter 'Name=vpc-id,Values='$VPC_ID | grep NatGatewayId
 aws ec2 describe-instances --region $REGION --filters 'Name=vpc-id,Values='$VPC_ID | grep InstanceId
