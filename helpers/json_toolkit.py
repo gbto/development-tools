@@ -1,4 +1,4 @@
-class JSONToolkit():
+class JSONToolkit:
     """A class that contains method useful for manipulating json."""
 
     def __init__():
@@ -22,7 +22,7 @@ class JSONToolkit():
 
     def cleanup_json(self, lookup_key: str, object: dict | list) -> list[dict]:
         """Replaces the values of a lookup keys from a json file by recursively
-        navigating """
+        navigating"""
 
         if type(object) == dict:
             for key, value in object.items():
