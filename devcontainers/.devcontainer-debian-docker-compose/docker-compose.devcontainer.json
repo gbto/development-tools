@@ -1,0 +1,57 @@
+version: "3.8"
+services:
+  workspace:
+    container_name: yearn-devcontainer
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+    # Pass environment variables
+    env_file:
+      - ./devcontainer.env
+
+    # Create or bind volumes between host and remote
+    volumes:
+      # Use a named volume for the source code
+      - ..:/root/yearn-exporter
+      # # Persist VS Code extensions between rebuilds
+      # - vscode-extensions:/root/.vscode-server/extensions
+      # # And/or for VS Code Insiders
+      # - vscode-extensions-insiders:/root/.vscode-server-insiders/extensions
+      # Let container run Host's Docker
+      - /var/run/docker.sock:/var/run/docker.sock
+
+      # Bind host's credentials
+      - type: bind
+        source: ${HOME}${USERPROFILE}/.ssh
+        target: /root/.ssh
+
+      - type: bind
+        source: ${HOME}${USERPROFILE}/.pyenv/versions
+        target: /root/.pyenv/versions
+
+      - type: bind
+        source: ${HOME}${USERPROFILE}/.aws
+        target: /root/.aws
+
+      - type: bind
+        source: ${HOME}${USERPROFILE}/.gitconfig-ledger
+        target: /root/.gitconfig-ledger
+
+      - type: bind
+        source: ${HOME}${USERPROFILE}/.gitconfig-gbto
+        target: /root/.gitconfig-gbto
+
+
+      # # Persist VS Code extensions between rebuilds
+      # - type: volume
+      #   source: devcontainer-extensions
+      #   target: /root/.vscode-server/extensions
+
+      # # And/or for VS Code Insiders
+      # - type: volume
+      #   source: devcontainer-extensions-insiders
+      #   target: /root/.vscode-server-insiders/extensions

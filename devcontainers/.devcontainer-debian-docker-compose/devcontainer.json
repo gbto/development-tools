@@ -1,0 +1,67 @@
+{
+    "name": "GBTO",
+    "dockerComposeFile": [
+        "docker-compose.project.yaml",
+        "docker-compose.devcontainer.yaml"
+    ],
+    "service": "workspace",
+    "workspaceFolder": "/root/yearn-exporter",
+    // "remoteEnv": {
+	// 	"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+	// },
+    "shutdownAction": "stopCompose",
+
+    // GENERAL COMMANDS
+    // "postStartCommand": "git config --global gpg.program /usr/bin/gpg && git config --global core.editor vi",
+    "extensions": [
+        "VisualStudioExptTeam.vscodeintellicode",
+        "peterjausovec.vscode-docker",
+        "ms-python.python",
+        "redhat.vscode-yaml",
+        "ms-vsliveshare.vsliveshare",
+        "amazonwebservices.aws-toolkit-vscode",
+        "ms-azuretools.vscode-docker",
+        "donjayamanne.githistory",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "GitHub.vscode-pull-request-github",
+        "njpwerner.autodocstring",
+        "JHeilingbrunner.vscode-gnupg-tool"
+    ],
+    // "hadolint".error
+    "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+            "zsh": {
+                "path": "/bin/zsh"
+            }
+        },
+        "cliOptions": ["--ignore", "DL3000", "DL3008", "DL3013"],
+        // FILES FORMATTING
+        "files.maxMemoryForLargeFilesMB": 6144,
+        "files.insertFinalNewline": true,
+        "files.trimTrailingWhitespace": true,
+        "files.exclude": {
+            "**/.classpath": true,
+            "**/.project": true,
+            "**/.settings": true,
+            "**/.factorypath": true,
+            "**/__pycache__": true,
+            "**/.ipynb_checkpoints/": true
+        },
+        // JUPYTER SETTINGS
+        "jupyter.sendSelectionToInteractiveWindow": true,
+        "jupyter.interactiveWindowMode": "perFile",
+        "jupyter.notebookFileRoot": "${workspaceFolder}",
+        // PYTHON
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.autoComplete.extraPaths": [],
+        "python.analysis.extraPaths": [],
+        "python.analysis.completeFunctionParens": true,
+        "python.analysis.autoImportCompletions": true,
+        // GIT EXTENSIONS
+        "git.autofetch": "all",
+        "diffEditor.ignoreTrimWhitespace": false
+
+    }
+}
