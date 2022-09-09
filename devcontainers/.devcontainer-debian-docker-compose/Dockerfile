@@ -15,8 +15,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     POETRY_VERSION=1.1.13
 
 # Install Linux packages
-RUN  apt-get update && \
-    apt-get install --no-install-recommends -y apt-utils \
+RUN apt-get update && \
+    apt-get install -y apt-utils \
     zsh \
     apt-transport-https \
     awscli \
@@ -28,6 +28,8 @@ RUN  apt-get update && \
     git \
     locales \
     procps \
+    postgresql \
+    postgresql-contrib \
     python3-pip \
     software-properties-common \
     lsb-release \
@@ -44,9 +46,9 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 \
 # Install and set-up oh-my-zsh
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN wget --progress=dot:giga "https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh" -O - | zsh || true && \
-    git clone "https://github.com/zsh-users/zsh-syntax-highlighting" "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" && \
-    git clone "https://github.com/zsh-users/zsh-autosuggestions" "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" && \
-    git clone --depth=1 "https://github.com/romkatv/powerlevel10k.git" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" && \
+    git clone --depth=1 "https://github.com/romkatv/powerlevel10k.git" ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k && \
+    git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
+    git clone "https://github.com/zsh-users/zsh-autosuggestions" ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen
 
@@ -83,17 +85,20 @@ RUN curl -fsSL "https://get.docker.com" | sh
 RUN curl -L "https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-$(uname -s)-$(uname -m)" -o "/usr/local/bin/docker-compose"
 RUN chmod +x /usr/local/bin/docker-compose
 
-# terminal colors with xterm
+# Terminal colors with xterm
 ENV TERM xterm
 
 # Clean up
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 ENV DEBIAN_FRONTEND=dialog
 
-# Create working directory
-RUN mkdir /root/Programming
-WORKDIR /root/Programming
+# Set the user of the session
+USER root
 
-# Run zsh
-CMD ["zsh"]
+# Create working directory
+RUN mkdir "/root/workspace"
+WORKDIR "/root/workspace"
+
+# Run ZSH
+SHELL ["/bin/zsh"]
 

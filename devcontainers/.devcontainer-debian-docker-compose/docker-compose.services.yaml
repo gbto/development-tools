@@ -1,0 +1,19 @@
+# version: '3.8'
+# services:
+#   db:
+#     image: postgres:14.1-alpine
+#     restart: always
+#     network_mode: bridge
+#     environment:
+#       - POSTGRES_HOST_AUTH_METHOD=trust
+#       - POSTGRES_HOST=localhost
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=postgres
+#       - POSTGRES_PORT=5432
+#     ports:
+#       - 5432:5432
+#     volumes:
+#       - db:/var/lib/postgresql/data
+
+# volumes:
+#   db: {}

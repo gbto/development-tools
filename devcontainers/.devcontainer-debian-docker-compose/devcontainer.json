@@ -1,18 +1,20 @@
 {
     "name": "GBTO",
+
+    // WITH DOCKER COMPOSE
     "dockerComposeFile": [
-        "docker-compose.project.yaml",
+        // "docker-compose.services.yaml",
         "docker-compose.devcontainer.yaml"
     ],
     "service": "workspace",
     "workspaceFolder": "/root/yearn-exporter",
+    "forwardPorts": [3000, 27017, 5432],
     // "remoteEnv": {
 	// 	"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
 	// },
     "shutdownAction": "stopCompose",
-
     // GENERAL COMMANDS
-    // "postStartCommand": "git config --global gpg.program /usr/bin/gpg && git config --global core.editor vi",
+    "postStartCommand": "git config --global gpg.program /usr/bin/gpg && git config --global core.editor vi",
     "extensions": [
         "VisualStudioExptTeam.vscodeintellicode",
         "peterjausovec.vscode-docker",
@@ -28,7 +30,6 @@
         "njpwerner.autodocstring",
         "JHeilingbrunner.vscode-gnupg-tool"
     ],
-    // "hadolint".error
     "settings": {
         "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.profiles.linux": {
@@ -36,7 +37,8 @@
                 "path": "/bin/zsh"
             }
         },
-        "cliOptions": ["--ignore", "DL3000", "DL3008", "DL3013"],
+        // HADOLINT
+        "hadolint.cliOptions": ["--ignore", "DL3000", "DL3008", "DL3013"],
         // FILES FORMATTING
         "files.maxMemoryForLargeFilesMB": 6144,
         "files.insertFinalNewline": true,
@@ -62,6 +64,5 @@
         // GIT EXTENSIONS
         "git.autofetch": "all",
         "diffEditor.ignoreTrimWhitespace": false
-
     }
 }

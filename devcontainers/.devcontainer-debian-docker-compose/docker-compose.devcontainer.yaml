@@ -17,11 +17,8 @@ services:
     volumes:
       # Use a named volume for the source code
       - ..:/root/yearn-exporter
-      # # Persist VS Code extensions between rebuilds
-      # - vscode-extensions:/root/.vscode-server/extensions
-      # # And/or for VS Code Insiders
-      # - vscode-extensions-insiders:/root/.vscode-server-insiders/extensions
-      # Let container run Host's Docker
+
+      # Create volume so remote can run Host's Docker
       - /var/run/docker.sock:/var/run/docker.sock
 
       # Bind host's credentials
@@ -45,13 +42,19 @@ services:
         source: ${HOME}${USERPROFILE}/.gitconfig-gbto
         target: /root/.gitconfig-gbto
 
+    network_mode: service:db
 
-      # # Persist VS Code extensions between rebuilds
-      # - type: volume
-      #   source: devcontainer-extensions
-      #   target: /root/.vscode-server/extensions
+  db:
+      image: postgres:latest
+      restart: unless-stopped
+      volumes:
+        - postgres-data:/var/lib/postgresql/data
+        - run-postgresql:/var/run/postgresql
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_DB: postgres
+        POSTGRES_PASSWORD:
 
-      # # And/or for VS Code Insiders
-      # - type: volume
-      #   source: devcontainer-extensions-insiders
-      #   target: /root/.vscode-server-insiders/extensions
+volumes:
+  postgres-data:
+  run-postgresql:
