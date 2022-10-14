@@ -1,0 +1,14 @@
+[user]
+        email = gibboneto@gmail.com
+        name = Quentin Gaborit
+        signingkey = FE6A622E439942B493197F7A185754FDB2B87DF7
+[core]
+        sshCommand = ssh -i ~/.ssh/gbto_rsa
+        editor = vi
+        autocrlf = input
+[commit]
+        gpgsign = true
+[gpg]
+        program = /usr/bin/gpg
+[credential]
+        useHttpPath = true
