@@ -391,15 +391,15 @@ if [ "${INSTALL_ZSH}" = "true" ]; then
         echo -e "$(cat "${template_path}")\nDISABLE_AUTO_UPDATE=true\nDISABLE_UPDATE_PROMPT=true" > ${user_rc_file}
         sed -i -e 's/ZSH_THEME=.*/ZSH_THEME="codespaces"/g' ${user_rc_file}
 
-        mkdir -p ${oh_my_install_dir}/custom/themes
-        echo "${codespaces_zsh}" > "${oh_my_install_dir}/custom/themes/codespaces.zsh-theme"
-
-        # Install power10k theme
+        # Install power10k theme and oh-my-zsh plugins
         git clone --depth=1 "https://github.com/romkatv/powerlevel10k.git" "${user_rc_path}/powerlevel10k"
         git clone --depth=1 "https://github.com/romkatv/powerlevel10k.git" "${oh_my_install_dir}/themes/powerlevel10k"
         git clone --depth=1 "https://github.com/zsh-users/zsh-syntax-highlighting.git" "${oh_my_install_dir}/plugins/zsh-syntax-highlighting"
         git clone --depth=1 "https://github.com/zsh-users/zsh-autosuggestions" "${oh_my_install_dir}/plugins/zsh-autosuggestions"
-        echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> /root/.zshrc
+
+        echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ${user_rc_file}
+        mkdir -p ${oh_my_install_dir}/custom/themes
+        echo "${codespaces_zsh}" > "${oh_my_install_dir}/custom/themes/codespaces.zsh-theme"
         # Shrink git while still enabling updates
         cd "${oh_my_install_dir}"
         git repack -a -d -f --depth=1 --window=1

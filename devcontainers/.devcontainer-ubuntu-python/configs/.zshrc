@@ -9,7 +9,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/root/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -110,7 +110,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias python="/usr/bin/python3"
 alias cp='cp -iv'                                       # Preferred 'cp' implementation
 alias mv='mv -iv'                                       # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                                 # Preferred 'mkdir' implementation
@@ -129,30 +128,7 @@ alias f='open -a Finder ./'                             # f:            Opens cu
 #   ----------------------------------------------------------
 #   Show and hide files in finder
 #   ----------------------------------------------------------
+alias ghcr_perso='echo $GITHUB_PAT_PERSO | docker login ghcr.io -u gbto --password-stdin'         # Connect to Ledger GitHub container registry
+alias print-path='echo -e ${PATH//:/\\n}'                                                         # Print PATH correctly
 alias docker-clean='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'           # Removes dangling docker images
-alias ghcr_ledger='echo $GITHUB_PAT_LEDGER | docker login ghcr.io -u gbto --password-stdin'       # Connects to personal GitHub container registry
-alias ghcr_perso='echo $GITHUB_PAT_PERSO | docker login ghcr.io -u gbto --password-stdin'         # Connects to Ledger GitHub container registry
-alias aws='docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli'                # Alias to run AWS cli in Docker
-
-# Configure Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
- eval "$(pyenv init -)"
-fi
-
-# Add Rust to the path
-export PATH="/root/.cargo/bin:${PATH}"
-
-# Add poetry to the path
-export PATH="~/.poetry/bin:$PATH"
-
-# # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# # Initialization code that may require console input (password prompts, [y/n]
-# # confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-# # If you come from bash you might have to change your $PATH.
-# # export PATH=$HOME/bin:/usr/local/bin:$PATH
+alias load-env="source <(sed -E -n 's/[^#]+/export &/ p' .env)"                                   # Export all variables of .env file
